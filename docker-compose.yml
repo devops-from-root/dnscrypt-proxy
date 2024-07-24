@@ -1,0 +1,28 @@
+# systemctl stop systemd-resolved && systemctl disable systemd-resolved && echo -e "nameserver 127.0.0.1\noptions $(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)" > /etc/resolv.conf && chattr +i /etc/resolv.conf
+# git clone https://github.com/devops-from-root/dnscrypt-proxy.git && cd dnscrypt-proxy && docker compose up -d
+
+name: dnscrypt
+
+services:
+  dnscrypt:
+    container_name: dnscrypt
+    image: dnscrypt-proxy
+    #image: ghcr.io/devops-from-root/dnscrypt-proxy:latest
+    build:
+      context: https://github.com/devops-from-root/dnscrypt-proxy.git
+      dockerfile: Dockerfile
+      args:
+        - BUILD_OPTIONS=--no-cache
+    build:
+      context: ${PWD}/.
+      dockerfile: Dockerfile
+      args:
+        - BUILD_OPTIONS=--no-cache
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD", "nc", "-zv", "localhost", "53"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    restart: unless-stopped

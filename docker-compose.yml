@@ -5,14 +5,14 @@ name: dnscrypt-proxy
 services:
   dnscrypt:
     container_name: dnscrypt-proxy
-    image: dnscrypt-proxy
-    #image: ghcr.io/devops-from-root/dnscrypt-proxy:latest
-    build:
-      context: https://github.com/devops-from-root/dnscrypt-proxy.git
-#      context: ${PWD}/.
-      dockerfile: Dockerfile
-      args:
-        - BUILD_OPTIONS=--no-cache
+    image: ghcr.io/devops-from-root/dnscrypt-proxy:latest
+    #image: dnscrypt-proxy
+    #build:
+      #context: https://github.com/devops-from-root/dnscrypt-proxy.git
+      #context: ${PWD}/.
+      #dockerfile: Dockerfile
+      #args:
+        #- BUILD_OPTIONS=--no-cache
     network_mode: "host"
     healthcheck:
       test: ["CMD", "nc", "-zv", "localhost", "53"]

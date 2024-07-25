@@ -3,7 +3,7 @@
 name: dnscrypt-proxy
 
 services:
-  dnscrypt:
+  dnscrypt-proxy:
     container_name: dnscrypt-proxy
     image: ghcr.io/devops-from-root/dnscrypt-proxy:latest
     #image: dnscrypt-proxy

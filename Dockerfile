@@ -17,4 +17,7 @@ RUN curl -s https://api.github.com/repos/DNSCrypt/dnscrypt-proxy/releases/latest
 
 WORKDIR /opt/dnscrypt-proxy
 
-ENTRYPOINT ["./dnscrypt-proxy", "-config", "example-dnscrypt-proxy.toml"]
+RUN cp example-dnscrypt-proxy.toml dnscrypt-proxy.toml \
+ && sed -i "s/listen_addresses = \['127.0.0.1:53'\]/listen_addresses = \['0.0.0.0:53'\]/" dnscrypt-proxy.toml
+
+ENTRYPOINT ["./dnscrypt-proxy", "-config", "dnscrypt-proxy.toml"]

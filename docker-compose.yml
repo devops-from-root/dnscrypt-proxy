@@ -1,4 +1,4 @@
-# git clone https://github.com/devops-from-root/dnscrypt-proxy.git && cd dnscrypt-proxy && docker compose up -d --build
+# git clone https://github.com/devops-from-root/dnscrypt-proxy.git && cd dnscrypt-proxy && docker network inspect dns_network >/dev/null 2>&1 || docker network create --driver=bridge --subnet=10.10.10.0/24 --gateway=10.10.10.1 dns_network && docker compose up -d --build
 
 name: dnscrypt-proxy
 

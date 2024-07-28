@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM ghcr.io/devops-from-root/alpine:main
 #FROM debian:latest
 
 RUN apk update \
